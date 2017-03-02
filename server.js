@@ -86,7 +86,7 @@ app.post('/roles/:roleId',(req,res) => {
 	for(permissionIndex in permissions){
 		var permission = permissions[permissionIndex];
 		if(!permissionsData.hasOwnProperty(permission)){
-			return res.status(401).send("permissions:" + permission + " provided does not exists in the permissions database");
+			return res.status(400).send("permissions:" + permission + " does not exists in the permissions database");
 		}
 	}
 
@@ -124,7 +124,7 @@ app.delete('/permissions/:permissionId',(req,res) => {
 		fs.writeFileSync(permissionsFile,JSON.stringify(permissionsData));
 	}
 	else{
-		res.status(400).send("the permission:"+permissionsId+" doesn't exist in permissions data");
+		res.status(200).send("the permission:"+permissionsId+" doesn't exist in permissions data, so can be said to be successfully deleted");
 	}
 
 	res.status(200).send("permission successfully deleted");
