@@ -35,7 +35,7 @@ app.get('/user/:userId',(req,res) => {
 				if(entitledPermissions.indexOf(permissionsData[permission].name) === -1) entitledPermissions.push(permissionsData[permission].name)
 			}
 		}
-		res.json(entitledPermissions);
+		res.status(200).send(entitledPermissions);
 	}
 	else{
 		res.status(400).send("user with the given userId:"+userId+" does not exist")
