@@ -76,7 +76,7 @@ run "npm test"
 
 For running the server :
 run "node server.js"
-then go to browser or postman or any servive which you want to use and use the following APIs
+then go to browser or postman or any service which you want to use and use the following APIs
 1. GET http://localhost:9000/user/<userid>
 2. GET http://localhost:9000/checkpermission/?userid=<user_id>&permissionid=<permission_id>
 3. POST http://localhost:9000/roles/<roleid>  with POST_PARAM:{"permissions":["perm5"]}
