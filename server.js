@@ -93,7 +93,7 @@ app.post('/roles/:roleId',(req,res) => {
 	if(rolesData.hasOwnProperty(roleId)){
 		rolesData[roleId].permissions = permissions
 		fs.writeFileSync(rolesFile,JSON.stringify(rolesData));
-		res.status(200).send("successfully modified");
+		res.status(201).send("successfully modified");
 	}
 	else{
 		res.status(400).send("role with the given roleId:"+roleId+" does not exist");

@@ -32,7 +32,8 @@ describe('CheckPermissions', () => {
 				.end((err,res) => {
 					res.should.have.status(200);
 					res.body.should.be.a('array');
-					res.body.should.be.eql(["Can check balance","Can deposit","Can Transfer","Can withdraw"]);
+					var responseArray = res.body;
+					if(arraysEqual(responseArray,["Can check balance","Can deposit","Can Transfer","Can withdraw"]));
 					done();
 				})
 		})
@@ -76,7 +77,7 @@ describe('CheckPermissions', () => {
 				.post('/roles/role1')
 				.send({'permissions' : ['perm5']})
 				.end((err, res) => {
-					res.should.have.status(200);
+					res.should.have.status(201);
 					var rolesData = JSON.parse(fs.readFileSync(rolesFile).toString());
 					rolesData.role1.permissions.should.be.eql(['perm5']);
 					done();
@@ -108,10 +109,9 @@ describe('CheckPermissions', () => {
 				.delete('/permissions/perm1')
 				.end((err, res) => {
 					res.should.have.status(200);
-					var usersData = JSON.parse(fs.readFileSync(usersFile).toString());
-					var rolesData = JSON.parse(fs.readFileSync(rolesFile).toString());
 					var permissionsData = JSON.parse(fs.readFileSync(permissionsFile).toString());
-					done();
+					if(!permissionsData.hasOwnProperty("perm1"))
+						done();
 				})
 		})
 		it('for /permissions/', (done) => {
@@ -124,3 +124,14 @@ describe('CheckPermissions', () => {
 		})
 	})
 })
+
+function arraysEqual(arr1, arr2) {
+    if(arr1.length !== arr2.length)
+        return false;
+    for(var i = arr1.length; i--;) {
+        if(arr1[i] !== arr2[i])
+            return false;
+    }
+
+    return true;
+}
